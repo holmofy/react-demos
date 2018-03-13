@@ -1,20 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Demo10</title>
     <script src="../build/react.js"></script>
     <script src="../build/react-dom.js"></script>
     <script src="../build/browser.min.js"></script>
   </head>
   <body>
+    <!-- 组件的生命周期分成三个状态：
+      Mounting：已插入真实 DOM
+      Updating：正在被重新渲染
+      Unmounting：已移出真实 DOM -->
     <div id="example"></div>
     <script type="text/babel">
       var Hello = React.createClass({
+        /* 注意和getDefaultProps的区别(参见Demo06) */
         getInitialState: function () {
           return {
             opacity: 1.0
           };
         },
 
+        /*
+        五个声明周期回调方法
+        componentWillMount()
+        componentDidMount()
+        componentWillUpdate(object nextProps, object nextState)
+        componentDidUpdate(object prevProps, object prevState)
+        componentWillUnmount()
+        */
+        /*
+        两个状态处理函数
+        componentWillReceiveProps(object nextProps)：已加载组件收到新的参数时调用
+        shouldComponentUpdate(object nextProps, object nextState)：组件判断是否重新渲染时调用
+        */
         componentDidMount: function () {
           this.timer = setInterval(function () {
             var opacity = this.state.opacity;
@@ -30,6 +49,14 @@
 
         render: function () {
           return (
+          /*
+          另外，组件的style属性的设置方式也值得注意，不能写成
+          style="opacity:{this.state.opacity};"
+          而要写成
+          style={{opacity: this.state.opacity}}
+          因为 React 组件样式是一个对象，所以
+          第一重大括号表示这是 JavaScript 语法，第二重大括号表示样式对象。
+          */
             <div style={{opacity: this.state.opacity}}>
               Hello {this.props.name}
             </div>

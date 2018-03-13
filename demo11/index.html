@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Demo11</title>
     <script src="../build/react.js"></script>
     <script src="../build/react-dom.js"></script>
     <script src="../build/browser.min.js"></script>
@@ -9,37 +10,40 @@
   <body>
     <div id="example"></div>
     <script type="text/babel">
-var UserGist = React.createClass({
-  getInitialState: function() {
-    return {
-      username: '',
-      lastGistUrl: ''
-    };
-  },
+      var UserGist = React.createClass({
+        getInitialState: function() {
+          return {
+            username: '',
+            lastGistUrl: ''
+          };
+        },
 
-  componentDidMount: function() {
-    $.get(this.props.source, function(result) {
-      var lastGist = result[0];
-      this.setState({
-        username: lastGist.owner.login,
-        lastGistUrl: lastGist.html_url
+        componentDidMount: function() {
+          // 发送source属性中定义的ajax链接
+          $.get(this.props.source, function(result) {
+            // 请求数据
+            var lastGist = result[0];
+            this.setState({
+              // 更新状态，刷新界面
+              username: lastGist.owner.login,
+              lastGistUrl: lastGist.html_url
+            });
+          }.bind(this));
+        },
+
+        render: function() {
+          return (
+            <div>
+              {this.state.username}'s last gist is <a href={this.state.lastGistUrl}>here</a>.
+            </div>
+          );
+        }
       });
-    }.bind(this));
-  },
 
-  render: function() {
-    return (
-      <div>
-        {this.state.username}'s last gist is <a href={this.state.lastGistUrl}>here</a>.
-      </div>
-    );
-  }
-});
-
-ReactDOM.render(
-  <UserGist source="https://api.github.com/users/octocat/gists" />,
-  document.getElementById('example')
-);
+      ReactDOM.render(
+        <UserGist source="https://api.github.com/users/octocat/gists" />,
+        document.getElementById('example')
+      );
     </script>
   </body>
 </html>

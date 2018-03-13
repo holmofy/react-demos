@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Demo06</title>
     <script src="../build/react.js"></script>
     <script src="../build/react-dom.js"></script>
     <script src="../build/browser.min.js"></script>
@@ -9,11 +10,23 @@
     <div id="example"></div>
     <script type="text/babel">
 
-      var data = 123;
+      var data = '123';
+      // 类型不匹配将会报警告
+      // var data = 123;
 
       var MyTitle = React.createClass({
+        /* 组件的属性可以接受任意值，字符串、对象、函数等等都可以。 */
+        /* 组件类的PropTypes属性，就是用来验证组件实例的属性是否符合要求 */
         propTypes: {
+          /* 这个 title 属性是必须的，而且它的值必须是字符串 */
           title: React.PropTypes.string.isRequired,
+        },
+
+        /* getDefaultProps方法可以用来设置组件属性的默认值。 */
+        getDefaultProps : function () {
+          return {
+            title : 'Hello World'
+          };
         },
 
         render: function() {

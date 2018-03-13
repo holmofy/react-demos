@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Demo02</title>
     <script src="../build/react.js"></script>
     <script src="../build/react-dom.js"></script>
     <script src="../build/browser.min.js"></script>
   </head>
   <body>
     <div id="example"></div>
+    <!-- JS中直接插入HTML=JSX -->
+    <!-- 更准确的说JSX=JS+XML -->
+    <!-- 因为要求HTML标签复合XML规范 -->
+    <!-- 如空标签必须要以“/>”结尾 -->
+
+    <!-- JSX 的基本语法规则：遇到 HTML 标签（以 < 开头），就用 HTML 规则解析； -->
+    <!-- 遇到代码块（以 { 开头），就用 JavaScript 规则解析。上面代码的运行结果如下。 -->
     <script type="text/babel">
       var names = ['Alice', 'Emily', 'Kate'];
 
@@ -17,7 +25,8 @@
             return <div key={index}>Hello, {name}!</div>
           })
         }
-        </div>,
+        </div>
+        /* 这是注释，注意不要使用<!-- -->这样的注释 */
         document.getElementById('example')
       );
     </script>

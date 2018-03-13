@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title>Demo07</title>
     <script src="../build/react.js"></script>
     <script src="../build/react-dom.js"></script>
     <script src="../build/browser.min.js"></script>
@@ -8,24 +9,37 @@
   <body>
     <div id="example"></div>
     <script type="text/babel">
-var MyComponent = React.createClass({
-  handleClick: function() {
-    this.refs.myTextInput.focus();
-  },
-  render: function() {
-    return (
-      <div>
-        <input type="text" ref="myTextInput" />
-        <input type="button" value="Focus the text input" onClick={this.handleClick} />
-      </div>
-    );
-  }
-});
+      var MyComponent = React.createClass({
 
-ReactDOM.render(
-  <MyComponent />,
-  document.getElementById('example')
-);
+        handleClick: function() {
+          /* this.refs.[refName] 就会返回这个真实的 DOM 节点 */
+          /* 获取真实dom节点中的内容，需要用到refs属性 */
+          this.refs.myTextInput.focus();
+        },
+
+        /* render 执行的结果得到的不是真正的 DOM 节点 */
+        /* 而是存在于内存之中的一种数据结构，叫做虚拟 DOM （virtual DOM） */
+        /* 只有当它插入文档以后，才会变成真实的 DOM */
+        /*
+        根据 React 的设计，所有的 DOM 变动，都先在虚拟 DOM 上发生，
+        然后再将实际发生变动的部分，反映在真实 DOM上，
+        这种算法叫做 DOM diff ，它可以极大提高网页的性能表现 */
+        /* 双缓冲算法? */
+        render: function() {
+          return (
+            /* 获取真实dom节点中的内容，需要用到ref属性 */
+            <div>
+              <input type="text" ref="myTextInput" />
+              <input type="button" value="Focus the text input" onClick={this.handleClick} />
+            </div>
+          );
+        }
+      });
+
+      ReactDOM.render(
+        <MyComponent />,
+        document.getElementById('example')
+      );
     </script>
   </body>
 </html>
